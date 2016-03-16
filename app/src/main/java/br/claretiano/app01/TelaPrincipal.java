@@ -95,7 +95,6 @@ public class TelaPrincipal extends AppCompatActivity
             // Uma das formas (a mais comum) de se utilizar é a seguinte:
             // Toast.makeText(context, text, duration).show();
             // Context = é o contexto da aplicação, geralmente utilizamos sempre a nossa Activity,
-            //
             // por isso passamos o nome da nossa Activity (classe) seguida do this: Activity.this
             // Text = é a mensagem que irá aparecer para o usuário na tela.
             // Duration = é a duração que a mensagem ficará visível na tela, geralmente utilizamos
