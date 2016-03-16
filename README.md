@@ -1,6 +1,6 @@
 # App01
 
-Projeto desenvolvido na aula de Android da claretiano no primeiro trimestre de 2016
+Projeto desenvolvido na aula de Android da Claretiano no primeiro trimestre de 2016
 
 Aplicativo iniciado na aula em 10/03/2016
 
