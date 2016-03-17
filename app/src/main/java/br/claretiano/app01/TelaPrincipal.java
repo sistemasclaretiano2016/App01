@@ -1,5 +1,6 @@
 package br.claretiano.app01;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 /*
  * AppCompatActivity = defini que a classe é um Activity e será portanto uma tela para o usuário.
@@ -102,11 +102,27 @@ public class TelaPrincipal extends AppCompatActivity
             // O método show chamado no final é para ativar a mensagem e mostrará ao usuário,
             // por isso quando alguma mensagem não estiver aparecendo, provavelmente será
             // a falta do show()
+            /*
             Toast.makeText(TelaPrincipal.this,
                     "Tipo   = " + tipo + "\n" +
                             "Qtde   = " + quantidade + "\n" +
                             "Acomp. = " + a + "\n",
                     Toast.LENGTH_LONG).show();
+            */
+
+            // AlertDialog.Builder são utilizados para dar uma mensagem ao usuário da tela,
+            // sendo ela uma mensagem mais expressiva, "forçando" o usuário a ler a mensagem.
+            // Com ela é possível inserir até 3 botões, positivo, negativo e neutro.
+            // O botão só irá aparecer se voce setar ele, informando o texto, e seu listener.
+            AlertDialog.Builder dig = new AlertDialog.Builder(this);
+            dig.setMessage("Tipo   = " + tipo + "\n" +
+                    "Qtde   = " + quantidade + "\n" +
+                    "Acomp. = " + a + "\n");
+            dig.setCancelable(false);
+            dig.setPositiveButton("OK", null);
+            dig.setNegativeButton("NÃO", null);
+            dig.setNeutralButton("CANCEL", null);
+            dig.show();
         }
     }
 }
