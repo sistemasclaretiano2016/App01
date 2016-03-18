@@ -1,6 +1,6 @@
 package br.claretiano.app01;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -47,7 +47,7 @@ public class TelaPrincipal extends AppCompatActivity
         // Todos os ID's (android:id="@+id/____") criados no xml serão
         // acessados pelo caminho: R.id.____
         rdgTipo = (RadioGroup) findViewById(R.id.rdgTipo);
-        rdbTipoSimples = (RadioButton) findViewById(R.id.rdbTipoDuplo);
+        rdbTipoSimples = (RadioButton) findViewById(R.id.rdbTipoSimples);
         rdbTipoDuplo = (RadioButton) findViewById(R.id.rdbTipoDuplo);
         rdbTipoTripo = (RadioButton) findViewById(R.id.rdbTipoTriplo);
         edtQuantidade = (EditText) findViewById(R.id.edtQuantidade);
@@ -72,23 +72,42 @@ public class TelaPrincipal extends AppCompatActivity
         // para isso deve comparar o ID da view clicada com o ID do botão
         if (v.getId() == R.id.btnSalvar) {
             String tipo = "";
+            double valor = 0;
 
             if (rdbTipoSimples.isChecked()) {
                 tipo = "Simples";
+                valor = 6.0;
             } else if (rdbTipoDuplo.isChecked()) {
                 tipo = "Duplo";
+                valor = 8.0;
             } else if (rdbTipoTripo.isChecked()) {
                 tipo = "Triplo";
+                valor = 10.0;
             }
 
-            int quantidade = Integer.parseInt(
-                    edtQuantidade.getText().toString());
+            int quantidade = 0;
+            if (!edtQuantidade.getText().toString().trim().isEmpty())
+                quantidade = Integer.parseInt(edtQuantidade.getText().toString());
+
+            valor = valor * quantidade;
 
             String a = "";
-            a += (ckbBatataFrita.isChecked()) ? "Batata Frita;" : "";
-            a += (ckbBacon.isChecked()) ? "Bacon;" : "";
-            a += (ckbNuggets.isChecked()) ? "Nuggets;" : "";
-            a += (ckbDobroQueijo.isChecked()) ? "2x Queijo;" : "";
+            if (ckbBatataFrita.isChecked()) {
+                a += "Batata Frita;";
+                valor += 3.0;
+            }
+            if (ckbBacon.isChecked()) {
+                a += "Bacon;";
+                valor += 1.5;
+            }
+            if (ckbNuggets.isChecked()) {
+                a += "Nuggets;";
+                valor += 3.0;
+            }
+            if (ckbDobroQueijo.isChecked()) {
+                a += "2x Queijo;";
+                valor += 1.0;
+            }
 
             // O Toast serve para enviar ao usuário do smartphone uma mensagem, aquela mensagem
             // pretinha que aparece rapidamente e some.
@@ -114,15 +133,45 @@ public class TelaPrincipal extends AppCompatActivity
             // sendo ela uma mensagem mais expressiva, "forçando" o usuário a ler a mensagem.
             // Com ela é possível inserir até 3 botões, positivo, negativo e neutro.
             // O botão só irá aparecer se voce setar ele, informando o texto, e seu listener.
+            /*
             AlertDialog.Builder dig = new AlertDialog.Builder(this);
             dig.setMessage("Tipo   = " + tipo + "\n" +
                     "Qtde   = " + quantidade + "\n" +
                     "Acomp. = " + a + "\n");
             dig.setCancelable(false);
-            dig.setPositiveButton("OK", null);
-            dig.setNegativeButton("NÃO", null);
-            dig.setNeutralButton("CANCEL", null);
+            dig.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //clique do botão OK
+                }
+            });
+            dig.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //clique do botão NÂO
+                }
+            });
+            dig.setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //clique do botão CANCEL
+                }
+            });
             dig.show();
+            */
+
+            // Abrir uma nova Activity.
+            // Sempre que for criar novas Activitys (telas), Services (Servicçs) e outros recursos
+            // que dependem do SO, será preciso fazer isso enviando uma intent, ela nada mais é
+            // que um identificador do que deverá ser chamado e o que conterá nesta chamada.
+            Intent it = new Intent(this, TelaSecundaria.class);
+            it.putExtra("tipo", tipo);
+            it.putExtra("quantidade", quantidade);
+            it.putExtra("acompanhamento", a);
+            it.putExtra("valor", valor);
+            startActivity(it);
+
+
         }
     }
 }
