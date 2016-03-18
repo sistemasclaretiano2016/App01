@@ -89,8 +89,6 @@ public class TelaPrincipal extends AppCompatActivity
             if (!edtQuantidade.getText().toString().trim().isEmpty())
                 quantidade = Integer.parseInt(edtQuantidade.getText().toString());
 
-            valor = valor * quantidade;
-
             String a = "";
             if (ckbBatataFrita.isChecked()) {
                 a += "Batata Frita;";
@@ -168,7 +166,7 @@ public class TelaPrincipal extends AppCompatActivity
             it.putExtra("tipo", tipo);
             it.putExtra("quantidade", quantidade);
             it.putExtra("acompanhamento", a);
-            it.putExtra("valor", valor);
+            it.putExtra("valor", valor * quantidade);
             startActivity(it);
 
 
